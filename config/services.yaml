@@ -1,0 +1,44 @@
+# This file is the entry point to configure your own services.
+# Files in the packages/ subdirectory configure your dependencies.
+
+# Put parameters here that don't need to change on each machine where the app is deployed
+# https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
+parameters:
+    app.price.parcel.box: '%env(float:PRICE_PARCEL_BOX)%'
+    app.price.parcel.letter: '%env(float:PRICE_PARCEL_LETTER)%'
+    app.price.size.small: '%env(float:PRICE_SIZE_SMALL)%'
+    app.price.size.medium: '%env(float:PRICE_SIZE_MEDIUM)%'
+    app.price.size.large: '%env(float:PRICE_SIZE_LARGE)%'
+    app.price.delivery_type.ordinary: '%env(float:PRICE_DELIVERY_TYPE_ORDINARY)%'
+    app.price.delivery_type.international: '%env(float:PRICE_DELIVERY_TYPE_INTERNATIONAL)%'
+    app.price.receive_type.ordinary: '%env(float:PRICE_RECEIVE_TYPE_ORDINARY)%'
+    app.price.receive_type.ordered: '%env(float:PRICE_RECEIVE_TYPE_ORDERED)%'
+    app.price.size.large.letter: '%env(float:PRICE_SIZE_LARGE_LETTER)%'
+
+services:
+    # default configuration for services in *this* file
+    _defaults:
+        autowire: true      # Automatically injects dependencies in your services.
+        autoconfigure: true # Automatically registers your services as commands, event subscribers, etc.
+
+    # makes classes in src/ available to be used as services
+    # this creates a service per class whose id is the fully-qualified class name
+    App\:
+        resource: '../src/'
+        exclude:
+            - '../src/DependencyInjection/'
+            - '../src/Entity/'
+            - '../src/Kernel.php'
+
+    # controllers are imported separately to make sure services can be injected
+    # as action arguments even if you don't extend any base controller class
+    App\Controller\:
+        resource: '../src/Controller/'
+        tags: ['controller.service_arguments']
+
+    # add more service definitions when explicit configuration is needed
+    # please note that last definitions always *replace* previous ones
+
+    App\Delivery\Infrastructure\Services\CalculateDelivery:
+        arguments:
+            $priceLoader: '@App\Delivery\Infrastructure\Services\LoadDeliveryPrice'
