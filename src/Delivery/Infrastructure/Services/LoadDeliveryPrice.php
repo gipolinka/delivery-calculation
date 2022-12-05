@@ -74,6 +74,7 @@ class LoadDeliveryPrice
         if ($this->parameterBag->has("$parameter.$option.$parcelType")) {
             return $this->parameterBag->get("$parameter.$option.$parcelType");
         }
+
         return $this->parameterBag->has("$parameter.$option") ?
             $this->parameterBag->get("$parameter.$option") : self::DEFAULT_VALUE;
     }

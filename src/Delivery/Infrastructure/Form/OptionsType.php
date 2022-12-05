@@ -11,11 +11,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class OptionsType extends AbstractType
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     * @return void
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('size', TextType::class, [
@@ -24,13 +19,8 @@ class OptionsType extends AbstractType
                 'constraints' => new IsOptionExist(['option' => 'delivery_type'])])
             ->add('receive_type', TextType::class, [
                 'constraints' => new IsOptionExist(['option' => 'receive_type'])]);
-
     }
 
-    /**
-     * @param OptionsResolver $resolver
-     * @return void
-     */
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(['data_class' => Options::class]

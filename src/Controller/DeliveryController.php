@@ -11,15 +11,12 @@ use App\Delivery\Infrastructure\Form\ParcelType;
 use App\Delivery\Domain\Entity\Parcel;
 
 /**
- * @Route("/api",name="api")
+ * @Route("/api",name="api_")
  */
 class DeliveryController extends AbstractFOSRestController
 {
     /**
-     * @Route("/delivery-cost",name="delivery-cost", methods={"POST"})
-     * @param Request $request
-     * @param CalculateDelivery $calculateDelivery
-     * @return View
+     * @Route("/delivery-cost", name="delivery-cost", methods={"POST"})
      */
     public function cost(Request $request, CalculateDelivery $calculateDelivery): View
     {
@@ -27,9 +24,11 @@ class DeliveryController extends AbstractFOSRestController
         $form = $this->createForm(ParcelType::class, $parcel);
         $form->submit($request->request->all());
         $view = $this->view($form);
+
         if ($form->isValid()) {
             $view->setData(['value' => $calculateDelivery->calc($parcel)]);
         }
+
         return $view;
     }
 }

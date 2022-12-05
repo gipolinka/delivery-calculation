@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Delivery\Domain\Entity;
 
 class Options
@@ -26,49 +27,31 @@ class Options
     private string $delivery_type;
     private string $receive_type;
 
-    /**
-     * @return string
-     */
     public function getDeliveryType(): string
     {
         return $this->delivery_type;
     }
 
-    /**
-     * @param string $delivery_type
-     */
     public function setDeliveryType(string $delivery_type): void
     {
         $this->delivery_type = $delivery_type;
     }
 
-    /**
-     * @return string
-     */
     public function getReceiveType(): string
     {
         return $this->receive_type;
     }
 
-    /**
-     * @param string $receive_type
-     */
     public function setReceiveType(string $receive_type): void
     {
         $this->receive_type = $receive_type;
     }
 
-    /**
-     * @return string
-     */
     public function getSize(): string
     {
         return $this->size;
     }
 
-    /**
-     * @param string $size
-     */
     public function setSize(string $size): void
     {
         $this->size = $size;
